@@ -98,20 +98,8 @@ public:
         }
 
         friend class Diccionario <T ,U >;
-
-        iterator begin () { 
-            iterator i ; 
-            i.it = datos.begin() ; 
-            return i ; 
-        }
-
-        iterator end () { 
-            iterator i ; 
-            i.it = datos.end() ; 
-            return i ; 
-        }
-
     };
+
     class const_iterator{
     private:
         typename list<data<T, U>>::const_iterator it_const;
@@ -129,7 +117,7 @@ public:
             return *this;
         }
 
-        data<T,U>& operator*() const {
+        const data<T,U>& operator*() const {
             return *it_const;
         }
 
@@ -142,20 +130,6 @@ public:
         }
 
         friend class Diccionario <T ,U >;
-
-        const_iterator begin () { 
-            const_iterator i ; 
-            i.it_const = datos.begin() ; 
-            return i ; 
-        }
-
-        const_iterator end () { 
-            const_iterator i ; 
-            i.it_const = datos.end() ; 
-            return i ; 
-        }
-
-
     };
 
     /**
@@ -235,13 +209,29 @@ public:
 
     /** Funciones begin y end para los iteradores**/
 
-    iterator begin();
+    iterator begin() { 
+        iterator i ; 
+        i.it = datos.begin() ; 
+        return i ; 
+    };
 
-    iterator end();
+    iterator end() { 
+        iterator i ; 
+        i.it = datos.end() ; 
+        return i ; 
+    };
 
-    const_iterator begin();
+    const_iterator begin() const { 
+        const_iterator i ; 
+        i.it_const = datos.begin() ; 
+        return i ; 
+    };
 
-    const_iterator end();
+    const_iterator end() const { 
+        const_iterator i ; 
+        i.it_const = datos.end() ; 
+        return i ; 
+    };
 
 };
 

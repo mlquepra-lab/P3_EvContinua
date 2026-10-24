@@ -67,4 +67,17 @@ Diccionario<T, U> & Diccionario<T, U>::operator=(const Diccionario<T, U> &D){
     return *this;
 }
 
+template <typename T, typename U>
+bool Diccionario<T, U>::Esta_Clave(const T &p, typename Diccionario<T,U>::iterator &it_out){
+    bool result=false;
+    it_out = begin();
 
+    while (it_out!=end()) {
+        if((*it_out).clave == p){
+            result = true;
+        }
+        ++it_out;
+    }
+
+    return result;
+}
