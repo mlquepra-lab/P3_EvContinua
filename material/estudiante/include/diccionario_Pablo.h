@@ -41,7 +41,7 @@ private:
     list<data<T, U> > datos;
 
     /* Copia el diccionario de entrada en el objeto implicito*/
-    void Copiar(const Diccionario<T, U>& D):
+    void Copiar(const Diccionario<T, U>& D);
 
     /* Borra todos los datos que contiene el diccionario*/
     void Borrar();
@@ -69,8 +69,7 @@ public:
     Diccionario<T, U> & operator=(const Diccionario<T, U> &D);
 
     class iterator{
-        //Completar el iterador
-
+        //Completar el const_iterator
 
     };
     class const_iterator{
