@@ -67,17 +67,52 @@ Diccionario<T, U> & Diccionario<T, U>::operator=(const Diccionario<T, U> &D){
     return *this;
 }
 
+
+/**
+Apunta al siguiente, para que la inserccion sea antes de ese numero
+Manteniendo el orden
+*/
 template <typename T, typename U>
 bool Diccionario<T, U>::Esta_Clave(const T &p, typename Diccionario<T,U>::iterator &it_out){
     bool result=false;
     it_out = begin();
 
-    while (it_out!=end()) {
-        if((*it_out).clave == p){
-            result = true;
-        }
+    while (it_out != end() && (*it_out).clave < p) {
         ++it_out;
     }
 
+    if (it_out != end() && (*it_out).clave == p) {
+        result=  true;
+    }
+
     return result;
+}
+
+template <typename T, typename U>
+void Diccionario<T, U>::Insertar(const T& clave, const list<U> &info){
+    typename Diccionario<T,U>::iterator it_out;
+    data<T, U> dato;
+
+    if(!Esta_Clave(clave, it_out)){
+        dato.clave = clave;
+        dato.info_asoci = info;
+
+        datos.insert(it_out,dato);
+    }
+
+}
+
+template <typename T, typename U>
+void Diccionario<T, U>::AddSignificado_Palabra(const U & s, const T &p){
+    typename Diccionario<T,U>::iterator it_out;
+
+    if(Esta_Clave(p, it_out)){
+        (*it_out).info_asoci.push_back(s);
+    }
+    else{
+        list<U> info;
+        info.push_back(s);
+        Insertar(p, info);
+    }
+
 }
