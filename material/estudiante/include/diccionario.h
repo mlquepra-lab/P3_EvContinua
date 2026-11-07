@@ -87,10 +87,8 @@ public:
 
         /**
         * @brief Constructor parametrizado.
-        
-        iterator (const typename std::list<data<T, U>>::iterator& iter);
         */
-
+        iterator (const typename std::list<data<T, U>>::iterator& iter);
 
         /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
@@ -102,9 +100,9 @@ public:
         * @brief Avanza el iterador hasta la siguiente posición (Post-incremento: it++)
         * @param int Sirve para indicar que se trata de it++
         * @return Copia del iterador en la posición anterior
-        
-        iterator operator++(int);
         */
+        iterator operator++(int);
+        
 
         /**
         * @brief Retrasa el iterador hasta la posición anterior (Pre-decremento: --it)
@@ -116,9 +114,8 @@ public:
         * @brief Retrasa el iterador hasta la posición anterior (Post-decremento: it--)
         * @param int Indica que se trata de it--.
         * @return Copia del iterador en la posición anterior al decremento.
-        
-        iterator operator--(int);
         */
+        iterator operator--(int);
 
         /**
         * @brief Accede al elemento al que referencia el iterador.
@@ -155,15 +152,13 @@ public:
 
         /**
         * @brief Constructor parametrizado.
-        
-        const_iterator (const typename std::list<data<T, U>>::const_iterator& iter);
         */
+        const_iterator (const typename std::list<data<T, U>>::const_iterator& iter);
 
         /**
         * @brief Constructor para transformar iterator en const_iterator.
-        
-        const_iterator(const iterator& otro);
         */
+        const_iterator(const iterator& otro);
 
         /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
@@ -175,9 +170,8 @@ public:
         * @brief Avanza el iterador hasta la siguiente posición (Post-incremento: it++)
         * @param int Sirve para indicar que se trata de it++
         * @return Copia del iterador en la posición anterior
-        
-        const_iterator operator++(int);
         */
+        const_iterator operator++(int);
 
         /**
         * @brief Retrasa el iterador hasta la posición anterior (Pre-decremento: --it)
@@ -189,9 +183,9 @@ public:
         * @brief Retrasa el iterador hasta la posición anterior (Post-decremento: it--)
         * @param int Indica que se trata de it--.
         * @return Copia del iterador en la posición anterior al decremento.
-        
-        const_iterator operator--(int);
         */
+        const_iterator operator--(int);
+        
 
         /**
         * @brief Accede al elemento al que referencia el iterador.

@@ -190,19 +190,115 @@ void Diccionario<T, U>::AddSignificado_Palabra(const U & s, const T &p){
 }
 
 /**
-    Devuelve la información (una lista) asociada a una clave p.
-    devuelve una lista con la informacion asociada a la clave.
-    */
+Devuelve la información (una lista) asociada a una clave p.
+devuelve una lista con la informacion asociada a la clave.
+*/
 template <typename T, typename U>
 list<U> Diccionario<T, U>::getInfo_Asoc(const T & p){
 
     typename Diccionario<T,U>::iterator it_out = begin();
-    list<U> resultado = nullptr;
+    list<U> resultado;
 
     if(Esta_Clave(p, it_out)){
          resultado = (*it_out).info_asoci;
     }
 
+    return  resultado;
+
+}
+
+/**
+Devuelve el tamaño del diccionario
+tamaño del diccionario
+*/
+template <typename T, typename U>
+int Diccionario<T, U>::size()const{
+    return datos.size();
+}
+
+/**
+borra un data del diccionario por su clave
+c es la clave cuyo elemento queremos borrar. Devuelve
+true si se ha borrado el elemento, false si no
+*/
+template <typename T, typename U>
+bool Diccionario<T, U>::Borrar(const T & c){
+
+    typename Diccionario<T,U>::iterator it_out = begin();
+    bool result = false;
+
+    if(Esta_Clave(c, it_out)){
+        datos.erase(it_out);
+        result = true;
+    }
+
+    return result;
+}
+
+/**
+Union de 2 diccionarios
+Si una clave aparece en ambos diccionarios en el resultante aparece una sola vez con la union
+de las informaciones asociadas.
+*/
+template <typename T, typename U>
+Diccionario<T, U> Diccionario<T, U>::union_d(const Diccionario & D){
+    Diccionario<T, U> nuevoDiccionario;
+
+    typename Diccionario<T,U>::const_iterator it1 = begin();
+    typename Diccionario<T,U>::const_iterator it2 = D.begin();
+
+
+    // Ponemos todo el contenido de nuestro diccionario
+    while (it1 != end()) {
+        nuevoDiccionario.Insertar((*it1).clave, (*it1).info_asoci);
+        ++it1;
+    }
+
+    // El otro diccionario va a introducir su informacion si ya existe o crear una nueva entrada si no
+    while(it2 != D.end()){
+        typename list<U>::const_iterator info = (*it2).info_asoci.begin();
+        T clave_actual = (*it2).clave;
+
+        // El primer elemento tiene informacion, usamos AddSignificado_Palabra
+        for(; info !=(*it2).info_asoci.end(); info++){
+            nuevoDiccionario.AddSignificado_Palabra(info, clave_actual);
+        }
+
+        ++it2;
+    }
+
+    return nuevoDiccionario;
+}
+
+/**
+elimina las claves del diccionario que aprecen en D
+D diccionario cuyas claves queremos eliminar
+*/
+template <typename T, typename U>
+Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D){
+    Diccionario<T, U> nuevoDiccionario;
+
+    typename Diccionario<T,U>::const_iterator it1 = begin();
+    typename Diccionario<T,U>::const_iterator it2 = D.begin();
+
+    // Ponemos todo el contenido de nuestro diccionario
+    while (it1 != end()) {
+        nuevoDiccionario.Insertar((*it1).clave, (*it1).info_asoci);
+        ++it1;
+    }
+
+    while(it2 != D.end()){
+        typename Diccionario<T,U>::iterator it_out = nuevoDiccionario.begin();
+        T clave_actual = (*it2).clave;
+
+        if(Esta_Clave(clave_actual, it_out)){
+            nuevoDiccionario.Borrar(clave_actual);
+        }
+
+        ++it2;
+    }
+    
+    return nuevoDiccionario;
 }
 
 /** Funciones begin y end para los iteradores**/
