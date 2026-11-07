@@ -87,8 +87,10 @@ public:
 
         /**
         * @brief Constructor parametrizado.
-        */
+        
         iterator (const typename std::list<data<T, U>>::iterator& iter);
+        */
+
 
         /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
@@ -100,20 +102,10 @@ public:
         * @brief Avanza el iterador hasta la siguiente posición (Post-incremento: it++)
         * @param int Sirve para indicar que se trata de it++
         * @return Copia del iterador en la posición anterior
-        */
+        
         iterator operator++(int);
-
-        /**
-        * @brief Comprueba si iteradores apuntan al mismo elemento.
-        * @return Variable booleana con la comparación.
         */
-        bool operator==(const iterator &otro) const;
 
-        /**
-        * @brief Comprueba si iteradores no apuntan al mismo elemento.
-        * @return Variable booleana con la comparación.
-        */
-        bool operator!=(const iterator &otro) const;
         /**
         * @brief Retrasa el iterador hasta la posición anterior (Pre-decremento: --it)
         * @return Refencia al iterador tras el decremento.
@@ -124,8 +116,9 @@ public:
         * @brief Retrasa el iterador hasta la posición anterior (Post-decremento: it--)
         * @param int Indica que se trata de it--.
         * @return Copia del iterador en la posición anterior al decremento.
-        */
+        
         iterator operator--(int);
+        */
 
         /**
         * @brief Accede al elemento al que referencia el iterador.
@@ -133,13 +126,25 @@ public:
         */        
         data<T,U>& operator*() const;
 
+        /**
+        * @brief Comprueba si iteradores no apuntan al mismo elemento.
+        * @return Variable booleana con la comparación.
+        */
+        bool operator!=(const iterator &otro) const;
+
+        /**
+        * @brief Comprueba si iteradores apuntan al mismo elemento.
+        * @return Variable booleana con la comparación.
+        */
+        bool operator==(const iterator &otro) const;
+
         friend class const_iterator;
 
     };
     class const_iterator{
         private:
 
-        typename list<data<T, U>>::const_iterator it;
+        typename list<data<T, U>>::const_iterator it_const;
 
         public:
         
@@ -150,14 +155,15 @@ public:
 
         /**
         * @brief Constructor parametrizado.
-        */
+        
         const_iterator (const typename std::list<data<T, U>>::const_iterator& iter);
+        */
 
         /**
         * @brief Constructor para transformar iterator en const_iterator.
-        */
+        
         const_iterator(const iterator& otro);
-
+        */
 
         /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
@@ -169,20 +175,10 @@ public:
         * @brief Avanza el iterador hasta la siguiente posición (Post-incremento: it++)
         * @param int Sirve para indicar que se trata de it++
         * @return Copia del iterador en la posición anterior
-        */
+        
         const_iterator operator++(int);
-
-        /**
-        * @brief Comprueba si iteradores apuntan al mismo elemento.
-        * @return Variable booleana con la comparación.
         */
-        bool operator==(const const_iterator &otro) const;
 
-        /**
-        * @brief Comprueba si iteradores no apuntan al mismo elemento.
-        * @return Variable booleana con la comparación.
-        */
-        bool operator!=(const const_iterator &otro) const;
         /**
         * @brief Retrasa el iterador hasta la posición anterior (Pre-decremento: --it)
         * @return Refencia al iterador tras el decremento.
@@ -193,14 +189,28 @@ public:
         * @brief Retrasa el iterador hasta la posición anterior (Post-decremento: it--)
         * @param int Indica que se trata de it--.
         * @return Copia del iterador en la posición anterior al decremento.
-        */
+        
         const_iterator operator--(int);
+        */
 
         /**
         * @brief Accede al elemento al que referencia el iterador.
         * @return El objeto al que referencia.
         */        
         const data<T,U>& operator*() const;      
+
+        /**
+        * @brief Comprueba si iteradores no apuntan al mismo elemento.
+        * @return Variable booleana con la comparación.
+        */
+        bool operator!=(const const_iterator &otro) const;
+
+        /**
+        * @brief Comprueba si iteradores apuntan al mismo elemento.
+        * @return Variable booleana con la comparación.
+        */
+        bool operator==(const const_iterator &otro) const;
+
 
     };
 
@@ -285,9 +295,9 @@ public:
 
     iterator end();
 
-    const_iterator begin();
+    const_iterator begin() const;
 
-    const_iterator end();
+    const_iterator end() const;
 
 };
 

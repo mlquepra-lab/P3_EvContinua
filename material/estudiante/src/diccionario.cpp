@@ -1,4 +1,4 @@
-#include "diccionario.h"
+#include "../include/diccionario.h"
 #include <iterator>
 using namespace std;
 
@@ -93,6 +93,52 @@ data<T,U>& Diccionario<T,U>::iterator::operator*(){
     return *it;
 }
 
+template <typename T, typename U>
+bool Diccionario<T,U>::iterator::operator!=(const iterator& otro) const {
+    return it != otro.it;
+}
+
+template <typename T, typename U>
+bool Diccionario<T,U>::iterator::operator==(const iterator& otro) const {
+    return it == otro.it;
+}
+
+/**
+* @brief Constructor del iterador
+*/
+template <typename T, typename U>
+Diccionario<T,U>::const_iterator::const_iterator(){
+}
+
+template <typename T, typename U>
+typename  Diccionario<T, U>::const_iterator&
+Diccionario<T,U>::const_iterator::operator++(){
+    ++it_const;
+    return *this;
+}
+
+template <typename T, typename U>
+typename  Diccionario<T, U>::const_iterator&
+Diccionario<T,U>::const_iterator::operator--(){
+    --it_const;
+    return *this;
+}
+
+template <typename T, typename U>
+data<T,U>& Diccionario<T,U>::const_iterator::operator*(){
+    return *it_const;
+}
+
+template <typename T, typename U>
+bool Diccionario<T,U>::const_iterator::operator!=(const const_iterator& otro) const {
+    return it_const != otro.it_const;
+}
+
+template <typename T, typename U>
+bool Diccionario<T,U>::const_iterator::operator==(const const_iterator& otro) const {
+    return it_const == otro.it_const;
+}
+
 /**
 Apunta al siguiente, para que la inserccion sea antes de ese numero
 Manteniendo el orden
@@ -102,10 +148,12 @@ bool Diccionario<T, U>::Esta_Clave(const T &p, typename Diccionario<T,U>::iterat
     bool result=false;
     it_out = begin();
 
+    // Busqueda de p
     while (it_out != end() && (*it_out).clave < p) {
         ++it_out;
     }
 
+    // Si el iterador se ha parado en el iterador devuelve true
     if (it_out != end() && (*it_out).clave == p) {
         result = true;
     }
@@ -113,9 +161,10 @@ bool Diccionario<T, U>::Esta_Clave(const T &p, typename Diccionario<T,U>::iterat
     return result;
 }
 
+
 template <typename T, typename U>
 void Diccionario<T, U>::Insertar(const T& clave, const list<U> &info){
-    typename Diccionario<T,U>::iterator it_out;
+    typename Diccionario<T,U>::iterator it_out = begin();
     data<T, U> dato;
 
     if(!Esta_Clave(clave, it_out)){
@@ -124,12 +173,11 @@ void Diccionario<T, U>::Insertar(const T& clave, const list<U> &info){
 
         datos.insert(it_out,dato);
     }
-
 }
 
 template <typename T, typename U>
 void Diccionario<T, U>::AddSignificado_Palabra(const U & s, const T &p){
-    typename Diccionario<T,U>::iterator it_out;
+    typename Diccionario<T,U>::iterator it_out = begin();
 
     if(Esta_Clave(p, it_out)){
         (*it_out).info_asoci.push_back(s);
@@ -139,8 +187,54 @@ void Diccionario<T, U>::AddSignificado_Palabra(const U & s, const T &p){
         info.push_back(s);
         Insertar(p, info);
     }
+}
+
+/**
+    Devuelve la información (una lista) asociada a una clave p.
+    devuelve una lista con la informacion asociada a la clave.
+    */
+template <typename T, typename U>
+list<U> Diccionario<T, U>::getInfo_Asoc(const T & p){
+
+    typename Diccionario<T,U>::iterator it_out = begin();
+    list<U> resultado = nullptr;
+
+    if(Esta_Clave(p, it_out)){
+         resultado = (*it_out).info_asoci;
+    }
 
 }
 
+/** Funciones begin y end para los iteradores**/
+template <typename T, typename U>
+typename  Diccionario<T, U>::iterator
+Diccionario<T, U>::begin() { 
+    iterator i ; 
+    i.it = datos.begin() ; 
+    return i ; 
+};
 
+template <typename T, typename U>
+typename  Diccionario<T, U>::iterator
+Diccionario<T, U>::end() { 
+    iterator i ; 
+    i.it = datos.end() ; 
+    return i ; 
+};
+
+template <typename T, typename U>
+typename  Diccionario<T, U>::const_iterator
+Diccionario<T, U>::begin() const { 
+    const_iterator i ; 
+    i.it_const = datos.begin() ; 
+    return i ; 
+};
+
+template <typename T, typename U>
+typename  Diccionario<T, U>::const_iterator
+Diccionario<T, U>::end() const { 
+    const_iterator i ; 
+    i.it_const = datos.end() ; 
+    return i ; 
+};
 
