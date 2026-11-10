@@ -334,3 +334,32 @@ Diccionario<T, U>::end() const {
     return i ; 
 };
 
+
+template <typename T, typename U>
+template <typename I>
+Diccionario<T,U> Diccionario<T, U>::Devolver_rango(const I &i, const I & f) const {
+    Diccionario<T, U> nuevo_diccionario;
+    
+    I it = i;
+    while (it != f) {
+        nuevo_diccionario.datos.push_back(*it);
+        it++;
+    }
+
+    return nuevo_diccionario;
+
+}
+
+template <typename T, typename U>
+Diccionario<T, U> Diccionario<T, U>::interseccion(const Diccionario<T, U> & D) const {
+
+    Diccionario<T,U> resultado = union_d(D);
+    Diccionario<T,U> dif = diferencia(D);
+    Diccionario<T,U> dif2 = D.diferencia(*this);
+    dif = dif.union_d(dif2);
+    resultado = resultado.diferencia(dif);
+
+    return resultado;
+
+
+}

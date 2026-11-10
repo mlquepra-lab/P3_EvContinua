@@ -268,7 +268,7 @@ public:
     Diccionario diferencia(const Diccionario &D);
 
     /**
-     Interssecion d 2 diccionarios;
+     Intersecion d 2 diccionarios;
      diccionario con el que se interseca
      */
     Diccionario interseccion(const Diccionario & D);
@@ -280,7 +280,7 @@ public:
 
      */
 
-    Diccionario Devolver_rango(const T &i, const T & f);
+    Diccionario Devolver_rango(const I &i, const I & f) const;
 
 
     /** Funciones begin y end para los iteradores**/

@@ -104,7 +104,7 @@ public:
   /**
    * @brief Inserta una palabra en el diccionario
    *
-   * @param val palaba a insertar en el diccionario
+   * @param val palabra a insertar en el diccionario
    * @return Booleano que indica si la inserción ha tenido éxito. Una palabra se inserta
    * con éxito si no existía previamente en el diccionario
    */
