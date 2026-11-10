@@ -280,7 +280,7 @@ public:
 
      */
 
-    Diccionario Devolver_rango(const I &i, const I & f) const;
+    Diccionario Devolver_rango(const I &i, const I &f) const;
 
 
     /** Funciones begin y end para los iteradores**/
