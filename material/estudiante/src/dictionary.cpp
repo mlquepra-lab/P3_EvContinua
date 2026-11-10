@@ -1,6 +1,11 @@
-#include "../include/diccionario.h"
+#include "../include/dictionary.h"
 #include <iterator>
 using namespace std;
 
-Dictionary::Dictionary(){
+
+
+Dictionary::~Dictionary()
+{
+    words.clear();
 }
+
