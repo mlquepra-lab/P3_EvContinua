@@ -5,11 +5,6 @@
 #include <string>
 #include <list>
 
-
-using namespace std;
-
-
-
 /*Tipo elemento que define el diccionario. T es el tipo de dato asociado a una clave que
 no se repite (DNI p.ej.) y list<U> es una lista de datos (string p.ej) asociados a la clave
 de tipo T. El diccionario está ordenado de menor a mayor clave.
@@ -17,10 +12,8 @@ de tipo T. El diccionario está ordenado de menor a mayor clave.
 template <class T, class U>
 struct data {
     T clave;
-    list<U> info_asoci;
+    std::list<U> info_asoci;
 };
-
-
 
 /*Comparador de datos. Ordena 2 registros de acuerdo a la clave de tipo T. Puede usarse como
 un funtor.
@@ -33,12 +26,11 @@ bool operator<(const data<T, U> &d1, const data <T, U>&d2) {
 
 }
 
-
 template <class T, class U>
 class Diccionario {
 private:
 
-    list<data<T, U> > datos;
+    std::list<data<T, U> > datos;
 
     /**
     * @brief Copia el diccionario de entrada en el objeto implicito.
@@ -51,7 +43,6 @@ private:
     void Borrar();
 
 public:
-
 
     /**
     * @brief Constructor por defecto.
@@ -76,7 +67,7 @@ public:
     class iterator{
         private:
 
-        typename list<data<T, U>>::iterator it;
+        typename std::list<data<T, U>>::iterator it;
 
         public:
         
@@ -141,7 +132,7 @@ public:
     class const_iterator{
         private:
 
-        typename list<data<T, U>>::const_iterator it_const;
+        typename std::list<data<T, U>>::const_iterator it_const;
 
         public:
         
@@ -186,7 +177,6 @@ public:
         */
         const_iterator operator--(int);
         
-
         /**
         * @brief Accede al elemento al que referencia el iterador.
         * @return El objeto al que referencia.
@@ -209,90 +199,108 @@ public:
     };
 
     /**
-     Busca la clave p en el diccionario.
-      p es la clave a buscar. it_out apuntara al elemento con esa clave y en caso
-      contrario de que no este la clave it_out apuntara a donde debería estar.
+    * @brief Busca la clave p en el diccionario.
+    * @param p Indica la clave a buscar.
+    * @param it_out Apuntará al elemento con esa clave.
+    * Si no existe apuntará a donde debería estar.
     */
     bool Esta_Clave(const T &p, typename Diccionario<T,U>::iterator &it_out);
 
+    /**
+    * @brief Inserta un nuevo registro en el diccionario.
+    * @param clave Clave usada para insertar en el diccionario.
+    * @param info Información asociada a la clave que se inserta junto con clave.
+    */
+    void Insertar(const T& clave, const std::list<U> &info);
 
     /**
-     Inserta un nuevo registro en el diccionario.
-     clave clave usada para insertar en el diccionario
-     info informacion asociada a la clave que se inserta junto con clave
-     el diccionario se supone ordenado, ya que insertar inserta en orden
-     */
-    void Insertar(const T& clave, const list<U> &info);
-
-
-    /**
-     Añade una nueva informacion asocida a una clave que está en el diccionario.
-     La nueva información se inserta al final de la lista de información.
-     Si no esta la clave la inserta y añade la informacion asociada.
-     */
+    * @brief Añade una nueva informacion asocida a una clave que está en el diccionario.
+    * La nueva información se inserta al final de la lista de información.
+    * Si no esta la clave la inserta y añade la informacion asociada.
+    * @param p Clave del diccionario.
+    * @param s Significado de la palabra.
+    */
     void AddSignificado_Palabra(const U & s, const T &p);
 
+    /**
+    * @brief Devuelve la información (una lista) asociada a una clave p.
+    * @return Devuelve una lista con la informacion asociada a la clave.
+    */
+    std::list<U> getInfo_Asoc(const T & p);
 
     /**
-     Devuelve la información (una lista) asociada a una clave p.
-     devuelve una lista con la informacion asociada a la clave.
-     */
-
-    list<U> getInfo_Asoc(const T & p);
-
-    /**
-     Devuelve el tamaño del diccionario
-     tamaño del diccionario
-     */
+    * @brief Devuelve el tamaño del diccionario.
+    * @return Tamaño del diccionario.
+    */
     int size()const;
 
-
     /**
-     borra un data del diccionario por su clave
-     c es la clave cuyo elemento queremos borrar. Devuelve
-     true si se ha borrado el elemento, false si no
-     */
+    * @brief Borra un data del diccionario por su clave.
+    * @param c Es la clave cuyo elemento queremos borrar.
+    * @return Devuelve true si se ha borrado el elemento, false si no.
+    */
     bool Borrar(const T & c);
 
     /**
-     Union de 2 diccionarios
-     Si una clave aparece en ambos diccionarios en el resultante aparece una sola vez con la union
-     de las informaciones asociadas.
-     */
-    Diccionario union_d(const Diccionario & D);
+    * @brief Une dos diccionarios.
+    * Si una clave aparece en ambos diccionarios en el resultante 
+    * aparece una sola vez con la union de las informaciones asociadas.
+    * @param D Diccionario con el que se une.
+    * @return Unión de 2 diccionarios.
+    */
+    Diccionario<T,U> union_d(const Diccionario<T,U> & D);
 
     /**
-     elimina las claves del diccionario que aprecen en D
-     D diccionario cuyas claves queremos eliminar
-     */
-    Diccionario diferencia(const Diccionario &D);
+    * @brief Elimina las claves del diccionario que aparecen en D.
+    * @param D Diccionario con el que se une.
+    * @return D diccionario cuyas claves queremos eliminar.
+    */
+    Diccionario<T,U> diferencia(const Diccionario<T,U> &D);
 
     /**
-     Intersecion d 2 diccionarios;
-     diccionario con el que se interseca
-     */
-    Diccionario interseccion(const Diccionario & D);
-
+    * @brief Intersecion d 2 diccionarios.
+    * @param D Diccionario con el que se une.
+    * @return Diccionario con el que se interseca.
+    */
+    Diccionario<T,U> interseccion(const Diccionario<T,U> & D);
 
     /**
-     Devuelve un diccionario con las claves en el
-     * 	intervalo [i,f)
-
-     */
-
-    Diccionario Devolver_rango(const I &i, const I &f) const;
-
+    * @brief Devuelve un diccionario con las claves en el
+    * intervalo [i,f)
+    * @param i Comienzo del intervalo.
+    * @param f Final del intervalo.
+    * @return Diccionario con las claves.
+    */
+    template <typename I>
+    Diccionario<T,U> Devolver_rango(const I &i, const I &f) const;
 
     /** Funciones begin y end para los iteradores**/
 
+    /**
+    * @brief Devuelve iterador al principio.
+    * @return iterador al principio.
+    */
     iterator begin();
 
+    /**
+    * @brief Devuelve iterador al final.
+    * @return iterador al final.
+    */
     iterator end();
 
+    /**
+    * @brief Devuelve iterador al principio.
+    * @return iterador al principio.
+    */
     const_iterator begin() const;
 
+    /**
+    * @brief Devuelve iterador al final.
+    * @return iterador al final.
+    */
     const_iterator end() const;
-
 };
+
+#include "diccionario.cpp"
 
 #endif
