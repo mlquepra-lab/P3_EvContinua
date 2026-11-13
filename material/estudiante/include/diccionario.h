@@ -131,7 +131,7 @@ public:
         */
         bool operator==(const iterator &otro) const;
 
-        friend class const_iterator;
+        friend class Diccionario <T ,U>;
 
     };
     class const_iterator{
@@ -152,9 +152,9 @@ public:
         const_iterator (const typename std::list<data<T, U>>::const_iterator& iter);
 
         /**
-        * @brief Constructor para transformar iterator en const_iterator.
+        * @brief Destructor
         */
-        const_iterator(const iterator& otro);
+        ~const_iterator(){}
 
         /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
@@ -200,6 +200,7 @@ public:
         */
         bool operator==(const const_iterator &otro) const;
 
+        friend class Diccionario <T ,U>;
 
     };
 
@@ -271,9 +272,9 @@ public:
 
     /**
     * @brief Devuelve un diccionario con las claves en el
-    * intervalo [i,f)
-    * @param i Comienzo del intervalo.
-    * @param f Final del intervalo.
+    * intervalo [i,f) 
+    * @param i Comienzo del intervalo. Es un iterador.
+    * @param f Final del intervalo. Es un iterador.
     * @return Diccionario con las claves.
     */
     template <typename I>

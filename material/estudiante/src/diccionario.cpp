@@ -89,7 +89,7 @@ Diccionario<T,U>::iterator::operator--(){
 }
 
 template <typename T, typename U>
-data<T,U>& Diccionario<T,U>::iterator::operator*(){
+data<T,U>& Diccionario<T,U>::iterator::operator*() const{
     return *it;
 }
 
@@ -125,7 +125,7 @@ Diccionario<T,U>::const_iterator::operator--(){
 }
 
 template <typename T, typename U>
-data<T,U>& Diccionario<T,U>::const_iterator::operator*(){
+const data<T,U>& Diccionario<T,U>::const_iterator::operator*() const{
     return *it_const;
 }
 
@@ -171,7 +171,7 @@ void Diccionario<T, U>::Insertar(const T& clave, const list<U> &info){
         dato.clave = clave;
         dato.info_asoci = info;
 
-        datos.insert(it_out,dato);
+        datos.insert(it_out.it,dato);
     }
 }
 
@@ -228,7 +228,7 @@ bool Diccionario<T, U>::Borrar(const T & c){
     bool result = false;
 
     if(Esta_Clave(c, it_out)){
-        datos.erase(it_out);
+        datos.erase(it_out.it);
         result = true;
     }
 
@@ -261,7 +261,7 @@ Diccionario<T, U> Diccionario<T, U>::union_d(const Diccionario & D){
 
         // El primer elemento tiene informacion, usamos AddSignificado_Palabra
         for(; info !=(*it2).info_asoci.end(); info++){
-            nuevoDiccionario.AddSignificado_Palabra(info, clave_actual);
+            nuevoDiccionario.AddSignificado_Palabra(*info, clave_actual);
         }
 
         ++it2;
@@ -275,7 +275,7 @@ elimina las claves del diccionario que aprecen en D
 D diccionario cuyas claves queremos eliminar
 */
 template <typename T, typename U>
-Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D){
+Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D) {
     Diccionario<T, U> nuevoDiccionario;
 
     typename Diccionario<T,U>::const_iterator it1 = begin();
@@ -291,7 +291,7 @@ Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D){
         typename Diccionario<T,U>::iterator it_out = nuevoDiccionario.begin();
         T clave_actual = (*it2).clave;
 
-        if(Esta_Clave(clave_actual, it_out)){
+        if(nuevoDiccionario.Esta_Clave(clave_actual, it_out)){
             nuevoDiccionario.Borrar(clave_actual);
         }
 
@@ -304,9 +304,12 @@ Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D){
 template <typename T, typename U>
 Diccionario<T, U> Diccionario<T, U>::interseccion(const Diccionario<T, U> & D) {
 
+    Diccionario<T,U> copiaD(D);
+
     Diccionario<T,U> resultado = union_d(D);
     Diccionario<T,U> dif = diferencia(D);
-    Diccionario<T,U> dif2 = D.diferencia(*this);
+    Diccionario<T,U> dif2 = copiaD.diferencia(*this);
+    
     dif = dif.union_d(dif2);
     resultado = resultado.diferencia(dif);
 
