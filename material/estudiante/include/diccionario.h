@@ -82,6 +82,11 @@ public:
         iterator (const typename std::list<data<T, U>>::iterator& iter);
 
         /**
+        * @brief Destructor.
+        */
+        ~iterator(){}
+
+        /**
         * @brief Avanza el iterador hasta la siguiente posición (Pre-Incremento: ++it)
         * @return Referencia al iterador tras el incremento.
         */
@@ -301,6 +306,5 @@ public:
     const_iterator end() const;
 };
 
-#include "diccionario.cpp"
 
 #endif
