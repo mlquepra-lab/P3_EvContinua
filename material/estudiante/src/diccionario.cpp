@@ -244,7 +244,7 @@ template <typename T, typename U>
 Diccionario<T, U> Diccionario<T, U>::union_d(const Diccionario & D){
     Diccionario<T, U> nuevoDiccionario;
 
-    typename Diccionario<T,U>::const_iterator it1 = begin();
+    typename Diccionario<T,U>::iterator it1 = begin();
     typename Diccionario<T,U>::const_iterator it2 = D.begin();
 
 
@@ -278,7 +278,7 @@ template <typename T, typename U>
 Diccionario<T, U> Diccionario<T, U>::diferencia(const Diccionario &D) {
     Diccionario<T, U> nuevoDiccionario;
 
-    typename Diccionario<T,U>::const_iterator it1 = begin();
+    typename Diccionario<T,U>::iterator it1 = begin();
     typename Diccionario<T,U>::const_iterator it2 = D.begin();
 
     // Ponemos todo el contenido de nuestro diccionario
@@ -363,3 +363,41 @@ Diccionario<T, U>::end() const {
     return i ; 
 };
 
+
+template <typename T, typename U>
+Diccionario<T,U>::iterator::iterator(const typename std::list<data<T, U>>::iterator& iter) {
+    it = iter;
+}
+
+template <typename T, typename U>
+Diccionario<T,U>::const_iterator::const_iterator(const typename std::list<data<T, U>>::const_iterator& iter) {
+    it_const = iter;
+}
+
+template <typename T, typename U>
+typename Diccionario<T,U>::iterator
+Diccionario<T,U>::iterator::operator++(int) {
+  iterator iter(it++);
+  return iter;
+}
+
+template <typename T, typename U>
+typename Diccionario<T,U>::const_iterator
+Diccionario<T,U>::const_iterator::operator++(int) {
+  const_iterator iter(it_const++);
+  return iter;
+}
+
+template <typename T, typename U>
+typename Diccionario<T,U>::iterator
+Diccionario<T,U>::iterator::operator--(int) {
+  iterator iter(it--);
+  return iter;
+}
+
+template <typename T, typename U>
+typename Diccionario<T,U>::const_iterator
+Diccionario<T,U>::const_iterator::operator--(int) {
+  const_iterator iter(it_const--);
+  return iter;
+}
