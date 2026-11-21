@@ -176,23 +176,94 @@ friend istream & operator>>(istream & is, Guia_Tlf & g);
   /**
   * @brief clase para iterar sobre la guia
   * */
-class iterator{
-   private:
 
-   public:
+class iterator {
+private:
+    map<string,string>::iterator it;
+
+public:
+    iterator() {}
+
+    iterator(const map<string,string>::iterator &otro) : it(otro) {}
+
+    iterator(const iterator &otro) : it(otro.it) {}
+
+    iterator& operator=(const iterator &otro) {it = otro.it;return *this;}
+
+    pair<string,string> operator*() const {return *it;}
+
+    iterator& operator++() {++it;return *this;}
+
+    iterator& operator--() {--it;return *this;}
+
+    iterator operator++(int) {iterator copia(*this);++it;return copia;}
+
+    iterator operator--(int) {iterator copia(*this);--it;return copia;}
+
+    bool operator!=(const iterator &otro) const {return it != otro.it;}
+
+    bool operator==(const iterator &otro) const {return it == otro.it;}
+
+    map<string,string>::iterator operator->() {return it;}
+
+    map<string,string>::iterator getIterator() {return it;}
 };
+
 
   /**
   * @brief Inicializa un iterator al comienzo de la guia
   * */
-iterator  begin();
-
+iterator begin(){iterator i = datos.begin();return i;}
   /**
   * @brief Inicializa un iterator al final de la guia
   * */
-iterator  end();
+iterator end(){iterator i = datos.end();return i;}
 
 
+  /**
+  * @brief clase para const_iterator sobre la guia
+  * */
+
+class const_iterator {
+private:
+    map<string,string>::const_iterator const_it;
+
+public:
+    const_iterator() {}
+
+    const_iterator(const map<string,string>::const_iterator &otro) : const_it(otro) {}
+
+    const_iterator(const const_iterator &otro) : const_it(otro.const_it) {}
+
+    const_iterator& operator=(const const_iterator &otro) {const_it = otro.const_it;return *this;}
+
+    pair<string,string> operator*() const {return *const_it;}
+
+    const_iterator& operator++() {++const_it;return *this;}
+
+    const_iterator& operator--() {--const_it;return *this;}
+
+    const_iterator operator++(int) {const_iterator copia(*this);++const_it;return copia;}
+
+    const_iterator operator--(int) {const_iterator copia(*this);--const_it;return copia;}
+
+    bool operator!=(const const_iterator &otro) const {return const_it != otro.const_it;}
+
+    bool operator==(const const_iterator &otro) const {return const_it == otro.const_it;}
+
+    map<string,string>::const_iterator operator->() {return const_it;}
+
+};
+
+
+  /**
+  * @brief Inicializa un iterator al comienzo de la guia
+  * */
+const_iterator begin() const{const_iterator i = datos.begin();return i;}
+  /**
+  * @brief Inicializa un iterator al final de la guia
+  * */
+const_iterator end() const{const_iterator i = datos.end();return i;}
 
 
 }; //del class Guia_Tlf

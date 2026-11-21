@@ -26,9 +26,9 @@ unsigned int Dictionary::size() const{
 
 vector<string> Dictionary::wordsOfLength(int length){
     vector<string> resultado;
-    set<string>::iterator it = words.begin();
+    set<string>::iterator it;
     
-    for (; it != words.end(); it++) {
+    for (it = words.begin(); it != words.end(); it++) {
         if(it->length() == length){
             resultado.push_back(*it);
         }
@@ -40,9 +40,9 @@ vector<string> Dictionary::wordsOfLength(int length){
 int Dictionary::getOccurrences(const char c){}
     
 void Dictionary::anade(const Dictionary &dic){
-    Dictionary::const_iterator it = dic.begin();
+    Dictionary::const_iterator it;
 
-    for(; it != dic.end(); it++){
+    for(it = dic.begin(); it != dic.end(); it++){
         if(!exists(*it)){
             words.insert(*it);
         }
@@ -62,9 +62,9 @@ Dictionary& Dictionary::operator=(const Dictionary &dic){
 istream& operator>>(istream &is, Dictionary &dic){}
 
 ostream& operator<<(ostream &os, const Dictionary &dic){
-    Dictionary::const_iterator it = dic.begin();
+    Dictionary::const_iterator it;
 
-    for(; it != dic.end(); it++){
+    for(it = dic.begin(); it != dic.end(); it++){
         os << *it;
     }
 
