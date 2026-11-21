@@ -273,13 +273,9 @@ ostream& operator<<(ostream& os, const Guia_Tlf& g) {
 istream& operator>>(istream& is, Guia_Tlf& g) {
     string nombre, telefono;
 
-    is >> nombre >> telefono;
-
-    pair<string, string> dato;
-    dato.first=nombre;
-    dato.second=telefono;
-
-    g.insert(dato);
+    while(is >> nombre >> telefono){
+        g.insert(nombre, telefono);
+    }
 
     return is;
 }

@@ -161,7 +161,7 @@ Guia_Tlf filtro(const string & c);
   @param g guia de telefonos que se escribe
   @return el flujo de salida
   */
-friend ostream & operator<<(ostream & os, Guia_Tlf & g);
+friend ostream & operator<<(ostream & os, const Guia_Tlf & g);
 
   /**
   @brief Lectura de  la guia de telefonos
