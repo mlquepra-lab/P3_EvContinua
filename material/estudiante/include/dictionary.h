@@ -59,9 +59,9 @@ public:
   /**
    * @brief Devuelve las palabras en el diccionario con una longitud dada
    * @param length Longitud de las palabras buscadas
-   * @return Vector de palabras con la longitud desdeada
+   * @return Vector de palabras con la longitud deseada
    */
-  vector<string> wordsOfLength(int length);
+  vector<string> wordsOfLength(int length) const;
 
   /**
    * @brief Indica si una palabra esta en el diccionario o no.
@@ -78,7 +78,7 @@ public:
    * @param c letra a buscar.
    * @return Un entero indicando el numero de apariciones.
    */
-  int getOccurrences(const char c);
+  int getOccurrences(const char c) const;
 
   /**
    * @brief Añade al diccionario actual el que se pasa como argumento
