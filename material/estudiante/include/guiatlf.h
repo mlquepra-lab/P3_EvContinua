@@ -1,6 +1,6 @@
 /**
- * @ file : guiatlf.h
- * @brief: TDA guia de telefonos
+ * @file guiatlf.h
+ * @brief TDA guia de telefonos
  * */
 
 #ifndef _GUIA_TLF_H
@@ -9,9 +9,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
-
-
 
 /**
   *  @brief T.D.A. Guia_Tlf
@@ -45,6 +42,7 @@ class Guia_Tlf{
   *
   */
 private:
+	/** @brief Pares (nombre, telefono) ordenados por nombre. */
 	map<string,string> datos; //si admites que haya nombres repetidos tendrías que usar un
 					     //multimap
 
@@ -52,7 +50,7 @@ public:
 
   /**
   @brief Acceso a un elemento
-  @param nombre: nombre del elemento  elemento acceder
+  @param nombre nombre del elemento  elemento acceder
   @return devuelve el valor asociado a un nombre, es decir el teléfono
   */
   //si fuese un multimap no podriamos usar []. Ademas que deberiamos devolver p.e un vector con todos
@@ -64,32 +62,32 @@ string  gettelefono(const string & nombre);
 
   /**
   @brief Insert un nuevo telefono
-  @param nombre: nombre clave del nuevo telefono
-  @param tlf: numero de telefono
-  @return : un pair donde first apunta al nuevo elemento insertado y bool es true si se ha ins
+  @param nombre nombre clave del nuevo telefono
+  @param tlf numero de telefono
+  @return un pair donde first apunta al nuevo elemento insertado y bool es true si se ha ins
   insertado el nuevo tlf o false en caso contrario
   */
 pair<map<string,string>::iterator,bool>  insert(string nombre, string tlf);
 
   /**
   @brief Insert un nuevo telefono
-  @param p: pair con el nombre y el telefono asociado
-  @return : un pair donde first apunta al nuevo elemento insertado y bool es true si se ha
+  @param p pair con el nombre y el telefono asociado
+  @return un pair donde first apunta al nuevo elemento insertado y bool es true si se ha
   insertado el nuevo tlf o false en caso contrario
   */
 pair<map<string,string>::iterator,bool>  insert(pair<string,string> p);
 
   /**
   @brief Borrar un telefono
-  @param nombre: nombre que se quiere borrar
-  @note: en caso de que fuese un multimap borraria todos con ese nombre
+  @param nombre nombre que se quiere borrar
+  @note en caso de que fuese un multimap borraria todos con ese nombre
   */
 void borrar(const string &nombre);
 
   /**
   @brief Borrar un telefono
-  @param nombre: nombre que se quiere borrar y telefono asociado
-  @note: esta funcion nos permite borrar solamente aquel que coincida en nombre y tlf
+  @param nombre nombre que se quiere borrar y telefono asociado
+  @note esta funcion nos permite borrar solamente aquel que coincida en nombre y tlf
   */
   //con map siempre hay uno con multimap puede existir mas de uno
 void borrar(const string &nombre,const string &tlf);
@@ -102,7 +100,7 @@ int size()const{return datos.size();}
 
   /**
   @brief Contabiliza cuantos telefonos tenemos asociados a un nombre
-  @param nombre: nombre sobre el que queremos consultar
+  @param nombre nombre sobre el que queremos consultar
   @return numero de telefonos asociados a un nombre
   */
 //al ser un map debe de ser 0 o 1. Si fuese un multimap podríamos tener mas de uno
@@ -115,22 +113,22 @@ void clear(){datos.clear();}
 
   /**
   @brief Union de guias de telefonos
-  @param g: guia que se une
-  @return: una nueva guia resultado de unir el objeto al que apunta this y g
+  @param g guia que se une
+  @return una nueva guia resultado de unir el objeto al que apunta this y g
   */
 Guia_Tlf operator+(const Guia_Tlf & g);
 
   /**
   @brief Diferencia de guias de telefonos
-  @param g: guia a restar
-  @return: una nueva guia resultado de la diferencia del objeto al que apunta this y g
+  @param g guia a restar
+  @return una nueva guia resultado de la diferencia del objeto al que apunta this y g
   */
 Guia_Tlf operator-(const Guia_Tlf & g);
 
   /**
   @brief  Obtiene una guia con los nombre previos a uno dado
-  @param nombre: nombre delimitador
-  @param tlf: telefono asociado a nombre
+  @param nombre nombre delimitador
+  @param tlf telefono asociado a nombre
   @return nueva guia sin nombres mayores que \a  nombre
   */
 Guia_Tlf previos(const string &nombre,const string &tlf);
@@ -138,7 +136,7 @@ Guia_Tlf previos(const string &nombre,const string &tlf);
   /**
   @brief Interseccion de guias de telefonos
   @param g  guia a hacer la interseccion con la guia apuntada por this
-  @return: una nueva guia resultado de la interseccion del objeto al que apunta this y g
+  @return una nueva guia resultado de la interseccion del objeto al que apunta this y g
   */
 Guia_Tlf inter(const Guia_Tlf & g);
 
@@ -153,32 +151,35 @@ void modi(const string &nombre, const string &newtlf);
   /**
   @brief obtiene una guia con los nombres que comiencen por un string
   @param c string con el comienzo de los nombres
-  @return: una nueva guia con los nombres que comienzan por c
+  @return una nueva guia con los nombres que comienzan por c
   */
 Guia_Tlf filtro(const string & c);
 
   /**
   @brief Escritura de la guia de telefonos
-  @param os: flujo de salida. Es MODIFICADO
-  @param g: guia de telefonos que se escribe
+  @param os flujo de salida. Es MODIFICADO
+  @param g guia de telefonos que se escribe
   @return el flujo de salida
   */
 friend ostream & operator<<(ostream & os, Guia_Tlf & g);
 
   /**
   @brief Lectura de  la guia de telefonos
-  @param is: flujo de entrada. ES MODIFICADO
-  @param g: guia de telefonos. ES MODIFICADO
+  @param is flujo de entrada. ES MODIFICADO
+  @param g guia de telefonos. ES MODIFICADO
   @return el flujo de entrada
   */
 friend istream & operator>>(istream & is, Guia_Tlf & g);
 
   /**
   * @brief clase para iterar sobre la guia
+  * @details Iterador bidireccional que envuelve al iterador del @c map interno.
+  * Al desreferenciarlo devuelve una copia del par (nombre, telefono).
   * */
 
 class iterator {
 private:
+    /** @brief Iterador del mapa interno al que envuelve. */
     map<string,string>::iterator it;
 
 public:
@@ -206,6 +207,7 @@ public:
 
     map<string,string>::iterator operator->() {return it;}
 
+    /** @brief Devuelve el iterador del @c map interno (necesario, por ejemplo, para @c erase). */
     map<string,string>::iterator getIterator() {return it;}
 };
 
@@ -222,10 +224,13 @@ iterator end(){iterator i = datos.end();return i;}
 
   /**
   * @brief clase para const_iterator sobre la guia
+  * @details Iterador bidireccional de solo lectura que envuelve al iterador
+  * constante del @c map interno.
   * */
 
 class const_iterator {
 private:
+    /** @brief Iterador constante del mapa interno al que envuelve. */
     map<string,string>::const_iterator const_it;
 
 public:
@@ -257,11 +262,11 @@ public:
 
 
   /**
-  * @brief Inicializa un iterator al comienzo de la guia
+  * @brief Inicializa un const_iterator al comienzo de la guia
   * */
 const_iterator begin() const{const_iterator i = datos.begin();return i;}
   /**
-  * @brief Inicializa un iterator al final de la guia
+  * @brief Inicializa un const_iterator al final de la guia
   * */
 const_iterator end() const{const_iterator i = datos.end();return i;}
 

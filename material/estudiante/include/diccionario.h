@@ -1,3 +1,8 @@
+/**
+ * @file diccionario.h
+ * @brief Especificación del TDA Diccionario<T,U> (plantilla) y del tipo data.
+ */
+
 #ifndef _DICCIONARIO_H
 #define _DICCIONARIO_H
 
@@ -5,18 +10,31 @@
 #include <string>
 #include <list>
 
-/*Tipo elemento que define el diccionario. T es el tipo de dato asociado a una clave que
-no se repite (DNI p.ej.) y list<U> es una lista de datos (string p.ej) asociados a la clave
-de tipo T. El diccionario está ordenado de menor a mayor clave.
+/**
+ * @brief Tipo elemento que define el diccionario.
+ * @tparam T Tipo de la clave, que no se repite (DNI, por ejemplo). Debe tener
+ * definidos los operadores @c < y @c ==.
+ * @tparam U Tipo de los datos asociados a la clave; se guardan en una lista
+ * (@c list<U>), por ejemplo cadenas con los significados de una palabra.
+ *
+ * @details El diccionario está ordenado de menor a mayor clave.
  */
 template <class T, class U>
 struct data {
-    T clave;
-    std::list<U> info_asoci;
+    T clave;                 ///< Clave del registro.
+    std::list<U> info_asoci; ///< Lista de informaciones asociadas a la clave.
 };
 
-/*Comparador de datos. Ordena 2 registros de acuerdo a la clave de tipo T. Puede usarse como
-un funtor.
+/**
+ * @brief Comparador de datos.
+ * @tparam T Tipo de la clave.
+ * @tparam U Tipo de la información asociada.
+ * @param d1 Primer registro.
+ * @param d2 Segundo registro.
+ * @return @c true si la clave de @p d1 es menor que la de @p d2.
+ *
+ * @details Ordena dos registros de acuerdo a la clave de tipo T. Puede usarse
+ * como un funtor.
  */
 template <class T, class U>
 bool operator<(const data<T, U> &d1, const data <T, U>&d2) {
@@ -26,10 +44,24 @@ bool operator<(const data<T, U> &d1, const data <T, U>&d2) {
 
 }
 
+/**
+ * @brief T.D.A. Diccionario
+ * @tparam T Tipo de las claves (sin repetición); debe admitir @c < y @c ==.
+ * @tparam U Tipo de la información asociada a cada clave.
+ *
+ * @details Un diccionario es una colección de registros (clave, lista de
+ * informaciones) ordenados de menor a mayor clave. Se implementa sobre una
+ * @c std::list<data<T,U>> que se mantiene siempre ordenada; no admite claves
+ * repetidas. Ofrece iteradores (iterator y const_iterator) y operaciones de
+ * conjuntos: unión, diferencia e intersección.
+ *
+ * La implementación está en src/diccionario.cpp.
+ */
 template <class T, class U>
 class Diccionario {
 private:
 
+    /** @brief Registros del diccionario, ordenados de menor a mayor clave. */
     std::list<data<T, U> > datos;
 
     /**
@@ -64,9 +96,16 @@ public:
     */
     Diccionario<T, U> & operator=(const Diccionario<T, U> &D);
 
+    /**
+     * @brief Iterador bidireccional sobre los registros del diccionario.
+     * @details Permite leer y modificar la información asociada a cada clave.
+     * No se debe modificar la clave a través del iterador porque se rompería
+     * la ordenación.
+     */
     class iterator{
         private:
 
+        /** @brief Iterador de la lista interna al que envuelve. */
         typename std::list<data<T, U>>::iterator it;
 
         public:
@@ -78,6 +117,7 @@ public:
 
         /**
         * @brief Constructor parametrizado.
+        * @param iter Iterador de la lista interna con el que se inicializa.
         */
         iterator (const typename std::list<data<T, U>>::iterator& iter);
 
@@ -134,9 +174,14 @@ public:
         friend class Diccionario <T ,U>;
 
     };
+    /**
+     * @brief Iterador bidireccional constante sobre los registros del diccionario.
+     * @details Solo permite leer los registros; se usa con diccionarios constantes.
+     */
     class const_iterator{
         private:
 
+        /** @brief Iterador constante de la lista interna al que envuelve. */
         typename std::list<data<T, U>>::const_iterator it_const;
 
         public:
@@ -148,6 +193,7 @@ public:
 
         /**
         * @brief Constructor parametrizado.
+        * @param iter Iterador constante de la lista interna con el que se inicializa.
         */
         const_iterator (const typename std::list<data<T, U>>::const_iterator& iter);
 

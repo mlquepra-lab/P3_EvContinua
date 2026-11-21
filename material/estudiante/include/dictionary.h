@@ -1,3 +1,8 @@
+/**
+ * @file dictionary.h
+ * @brief Especificación del TDA Dictionary (conjunto ordenado de palabras).
+ */
+
 #ifndef __DICTIONARY_H__
 #define __DICTIONARY_H__
 
@@ -68,7 +73,7 @@ public:
    *
    * Este método comprueba si una determinada palabra se encuentra o no en el dicccionario
    *
-   * @param palabra: la palabra que se quiere buscar.
+   * @param val La palabra que se quiere buscar.
    * @return Booleano indicando si la palabra existe o no en el diccionario
    */
   bool exists(const string& val)const{return words.count(val) > 0;}
@@ -139,9 +144,14 @@ public:
    */
   friend ostream& operator<<(ostream &os, const Dictionary &dic);
 
+  /**
+   * @brief Class iterator
+   * @details Iterador bidireccional sobre las palabras del diccionario. Al
+   * desreferenciarlo devuelve una copia de la palabra (@c string).
+   */
   class iterator{
   private:
-    set<string>::iterator it;
+    set<string>::iterator it; ///< Iterador del conjunto interno al que envuelve.
   public:
     iterator(){}
     iterator(const set<string>::iterator& otro):it(otro){}
@@ -160,11 +170,12 @@ public:
 
   /**
    * @brief Class const_iterator
-   * @details Se hace para poder iterar sobre los elementos de tipo LettersSet que sean constantes
+   * @details Iterador bidireccional de solo lectura sobre las palabras de un
+   * Dictionary constante.
    */
   class const_iterator{
   private:
-    set<string>::const_iterator const_it;
+    set<string>::const_iterator const_it; ///< Iterador constante del conjunto interno al que envuelve.
   public:
     const_iterator(){}
     const_iterator(const set<string>::const_iterator& otro):const_it(otro){}
@@ -181,9 +192,13 @@ public:
     bool operator==(const const_iterator& otro){return const_it == otro.const_it;}
   };
 
+  /** @brief Devuelve un iterator a la primera palabra (orden alfabético). */
   iterator begin(){iterator i = words.begin();return i;}
+  /** @brief Devuelve un iterator a la posición siguiente a la última palabra. */
   iterator end(){iterator i = words.end();return i;}
+  /** @brief Devuelve un const_iterator a la primera palabra (orden alfabético). */
   const_iterator begin()const{const_iterator i = words.begin();return i;}
+  /** @brief Devuelve un const_iterator a la posición siguiente a la última palabra. */
   const_iterator end()const{const_iterator i = words.end();return i;}
 
 };

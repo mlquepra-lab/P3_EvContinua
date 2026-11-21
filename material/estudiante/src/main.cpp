@@ -1,15 +1,35 @@
+/**
+ * @file main.cpp
+ * @brief Programa de pruebas de la plantilla Diccionario<T,U>.
+ *
+ * @details Ejecuta una batería de pruebas numeradas que comprueban, por orden:
+ * el constructor por defecto, Insertar(), Esta_Clave(), AddSignificado_Palabra(),
+ * getInfo_Asoc(), Borrar(), el constructor de copia, el operador de asignación,
+ * los iteradores (iterator y const_iterator), union_d(), diferencia(),
+ * interseccion(), Devolver_rango(), el uso con otros tipos (int, int), el
+ * operador < de data y el destructor.
+ *
+ * Cada comprobación escribe <tt>[ OK ]</tt> o <tt>[FAIL]</tt> junto con su
+ * descripción mediante check().
+ */
+
 #include <iostream>
 #include <string>
 #include <list>
 #include "diccionario.h"
-// Como Diccionario es una plantilla, la implementación debe ser visible.
-// Si la tienes en diccionario.cpp (o .tpp), descomenta la línea que corresponda:
-#include "diccionario.cpp"
+#include "../src/diccionario.cpp"
 
 using namespace std;
 
 // ---------- Utilidades de impresión ----------
 
+/**
+ * @brief Imprime una lista por la salida estándar con el formato <tt>[a, b, c]</tt>.
+ * @tparam U Tipo de los elementos de la lista; debe poder escribirse con @c operator<<.
+ * @param l Lista que se imprime.
+ *
+ * @post No escribe salto de línea al final.
+ */
 template <class U>
 void imprimirLista(const list<U> &l) {
     cout << "[";
@@ -20,7 +40,16 @@ void imprimirLista(const list<U> &l) {
     cout << "]";
 }
 
-// Imprime usando const_iterator (diccionario const)
+/**
+ * @brief Imprime un diccionario completo usando un const_iterator.
+ * @tparam T Tipo de las claves del diccionario.
+ * @tparam U Tipo de la información asociada.
+ * @param titulo Texto que encabeza la salida.
+ * @param D Diccionario (constante) que se imprime.
+ *
+ * @details Escribe una línea de cabecera con el título y el tamaño, y después
+ * una línea por clave con el formato <tt>clave -> [info1, info2, ...]</tt>.
+ */
 template <class T, class U>
 void imprimirDic(const string &titulo, const Diccionario<T, U> &D) {
     cout << "--- " << titulo << " (size = " << D.size() << ") ---" << endl;
@@ -31,14 +60,32 @@ void imprimirDic(const string &titulo, const Diccionario<T, U> &D) {
     }
 }
 
+/**
+ * @brief Escribe el encabezado de una sección de pruebas.
+ * @param t Título de la sección.
+ */
 void titulo(const string &t) {
     cout << "\n==================== " << t << " ====================" << endl;
 }
 
+/**
+ * @brief Muestra el resultado de una comprobación.
+ * @param desc Descripción de lo que se comprueba.
+ * @param cond Resultado de la comprobación: @c true escribe <tt>[ OK ]</tt> y
+ * @c false escribe <tt>[FAIL]</tt>.
+ */
 void check(const string &desc, bool cond) {
     cout << "  [" << (cond ? " OK " : "FAIL") << "] " << desc << endl;
 }
 
+/**
+ * @brief Función principal: ejecuta todas las pruebas de Diccionario<T,U>.
+ * @return 0 al terminar. Los fallos no cambian el valor de retorno: se
+ * detectan buscando líneas <tt>[FAIL]</tt> en la salida.
+ *
+ * @note Las pruebas usan @c Diccionario<string,string> salvo la número 15, que
+ * usa @c Diccionario<int,int>.
+ */
 int main() {
     typedef Diccionario<string, string> Dic;
 

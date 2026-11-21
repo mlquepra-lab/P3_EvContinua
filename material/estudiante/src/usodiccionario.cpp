@@ -1,11 +1,30 @@
+/**
+ * @file usodiccionario.cpp
+ * @brief Programa de ejemplo de uso de Diccionario<string,string>.
+ *
+ * @details Lee dos diccionarios de la entrada estándar y escribe su unión,
+ * su diferencia y su intersección. Después lee dos claves y muestra las claves
+ * del primer diccionario que quedan en el rango entre ambas.
+ *
+ * Uso con un fichero de ejemplo (por ejemplo, data/data.txt):
+ * <tt>./usodiccionario &lt; data.txt</tt>
+ */
+
 #include <iostream>
 #include "diccionario.h"
 
-
-
-/*Operator<<. Obsérvese el uso de 2 tipos diferentes de iteradores. Uno sobre 
-listas de listas y otro sobre listas
-*/
+/**
+ * @brief Escribe un diccionario en un flujo de salida.
+ * @param os Flujo de salida (es modificado).
+ * @param D Diccionario que se escribe.
+ * @return El flujo @p os, para poder encadenar el operador.
+ *
+ * @details Se usan dos tipos de iteradores: un const_iterator sobre el
+ * diccionario (una lista de registros) y un @c list<string>::const_iterator
+ * sobre la información asociada de cada clave (una lista de cadenas). Para
+ * cada clave escribe la clave, el texto <tt>informacion asociada:</tt>, cada
+ * elemento de la información en su propia línea y una línea de asteriscos.
+ */
 ostream & operator<<(ostream & os, const Diccionario<string,string> & D){
 	  
 	  Diccionario<string,string>::const_iterator it;
@@ -24,12 +43,21 @@ ostream & operator<<(ostream & os, const Diccionario<string,string> & D){
 	  return os;
 }
 
-/*Operator >>. El formato de la entrada es:
-     numero de claves en la primera linea
-     clave-iésima retorno de carro
-     numero de informaciones asociadas en la siguiente linea
-     y en cada linea obviamente la informacion asociada
-*/
+/**
+ * @brief Lee un diccionario desde un flujo de entrada.
+ * @param is Flujo de entrada (es modificado).
+ * @param D Diccionario que se rellena; su contenido anterior se pierde.
+ * @return El flujo @p is, para poder encadenar el operador.
+ *
+ * @details El formato de la entrada es:
+ *  - número de claves en la primera línea;
+ *  - para cada clave: la clave (línea completa), el número de informaciones
+ *    asociadas en la línea siguiente y después una línea por cada información.
+ *
+ * Se lee primero en un diccionario auxiliar y al final se asigna a @p D.
+ *
+ * @pre El flujo respeta el formato descrito.
+ */
 
 istream & operator >>(istream & is,Diccionario<string,string> &D){
           typename list<data<string, string> >::iterator useless;
@@ -60,7 +88,12 @@ istream & operator >>(istream & is,Diccionario<string,string> &D){
 	  return is;
 }
 
-/*Recorre la lista de información asociada a una clave y la imprime*/
+/**
+ * @brief Escribe por la salida estándar la información asociada a una clave.
+ * @param l Lista de informaciones (significados) de la clave.
+ *
+ * @post Cada elemento de @p l se escribe en una línea distinta.
+ */
 void EscribeSigni(const list<string>&l){		 
 	  list<string>::const_iterator it_s;
 	  
@@ -70,10 +103,19 @@ void EscribeSigni(const list<string>&l){
 }	
 
 
-/*Lee un diccioario e imprime datos asociados a una clave. 
-Hay un fichero ejemplo de prueba: data.txt.Para lanzar el programa con ese fichero se escribe: 
-                  ./usodiccionario < data.txt 
-*/
+/**
+ * @brief Función principal: lee dos diccionarios y muestra las operaciones entre ellos.
+ * @return Sin valor de retorno explícito (equivale a 0 en @c main).
+ *
+ * @details Lee D1 y D2 de la entrada estándar y escribe D1, D2, su unión
+ * (Diccionario::union_d), su diferencia D1-D2 (Diccionario::diferencia) y su
+ * intersección (Diccionario::interseccion). A continuación lee dos claves y
+ * escribe las claves de D1 que están en el intervalo entre ambas
+ * (Diccionario::Devolver_rango).
+ *
+ * @note Hay un fichero de ejemplo, data.txt. Para ejecutar el programa con él:
+ * <tt>./usodiccionario &lt; data.txt</tt>
+ */
 int main(){
 	Diccionario<string,string> D1;
 	Diccionario<string,string> D2;

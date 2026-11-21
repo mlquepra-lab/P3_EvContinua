@@ -1,0 +1,49 @@
+/**
+@page uso_llm Uso de modelos de lenguaje (LLM)
+
+En esta práctica se ha utilizado un LLM, concretamente Claude (Anthropic, modelo
+Claude Sonnet 5.5), en las partes que se indican a continuación, explicando en
+cada una cómo y por qué se usó.
+
+@section llm_enunciado Comprensión del enunciado
+
+- <b>Cómo:</b> se le pidió que explicara con otras palabras qué pedía cada
+  apartado de la práctica (por ejemplo, qué debía hacer cada operación del TDA, la
+  estructura de entrega o el uso de Doxygen) y se le consultaron dudas de
+  conceptos, como dónde debe ir la implementación de una plantilla o cómo escribir
+  los <tt>\#include</tt> entre las carpetas <tt>include/</tt> y <tt>src/</tt>.
+- <b>Por qué:</b> para asegurarnos de entender exactamente lo que se pedía antes de
+  empezar a programar.
+
+@section llm_implementacion Implementación
+
+- La implementación del código (los TDA, sus operaciones, los programas de
+  prueba y los programas de ejemplo) la hemos realizado entre las dos personas del
+  equipo. El LLM no ha escrito la lógica de la práctica.
+
+@section llm_correcciones Corrección de código
+
+- <b>Cómo:</b> se le proporcionó el código ya escrito y se le pidió que señalara
+  errores e inconsistencias, como declaraciones de la cabecera que no coinciden con
+  su definición en el <tt>.cpp</tt> (<tt>const</tt> en <tt>wordsOfLength</tt> o en
+  <tt>operator&lt;&lt;</tt>) o programas que no compilan con la cabecera actual.
+  También se le consultó cómo resolver los errores de enlazado de las plantillas.
+- <b>Por qué:</b> para detectar errores que no habíamos visto y entender su causa.
+- Los cambios en el código los hemos aplicado nosotros.
+
+@section llm_documentacion Documentación con Doxygen
+
+- <b>Cómo:</b> se le proporcionaron las cabeceras y los <tt>.cpp</tt> y se le pidió
+  que escribiera los comentarios Doxygen de los <tt>.cpp</tt> (descripción de la
+  implementación, precondiciones, postcondiciones y eficiencia de cada método) y
+  que completara la documentación que faltaba en las cabeceras (iteradores,
+  <tt>\@file</tt>, <tt>\@tparam</tt>), corrigiendo también etiquetas mal escritas
+  como algunos <tt>\@param</tt>. También se le pidió una recomendación de qué
+  elementos añadir a la documentación (página principal, <tt>Doxyfile.in</tt>,
+  <tt>CMakeLists.txt</tt>).
+- <b>Por qué:</b> para ahorrar tiempo en la parte más repetitiva de la
+  documentación y para seguir un criterio común en todos los archivos.
+- En esta parte solo se modificaron comentarios; el código no cambió.
+- Hemos revisado los comentarios generados para comprobar que describen lo que hace
+  realmente nuestro código.
+*/
