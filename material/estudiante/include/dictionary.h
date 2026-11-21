@@ -152,8 +152,8 @@ public:
     string operator*()const{return *it;}
     iterator& operator++(){++it;return *this;}
     iterator& operator--(){--it;return *this;}
-    iterator& operator++(int){it++;return *this;}
-    iterator& operator--(int){it--;return *this;}
+    iterator operator++(int){it++;return *this;}
+    iterator operator--(int){it--;return *this;}
     bool operator!=(const iterator& otro){return it != otro.it;}
     bool operator==(const iterator& otro){return it == otro.it;}
   };
@@ -175,8 +175,8 @@ public:
     const string operator*()const{return *const_it;}
     const_iterator& operator++(){++const_it;return *this;}
     const_iterator& operator--(){--const_it;return *this;}
-    const_iterator& operator++(int){const_it++;return *this;}
-    const_iterator& operator--(int){const_it--;return *this;}
+    const_iterator operator++(int){const_it++;return *this;}
+    const_iterator operator--(int){const_it--;return *this;}
     bool operator!=(const const_iterator& otro){return const_it != otro.const_it;}
     bool operator==(const const_iterator& otro){return const_it == otro.const_it;}
   };

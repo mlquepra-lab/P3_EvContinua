@@ -25,6 +25,19 @@ unsigned int Dictionary::size() const{
     return words.size();
 }
 
+vector<string> Dictionary::wordsOfLength(int length){
+    vector<string> resultado;
+    set<string>::iterator it;
+    
+    for (it = words.begin(); it != words.end(); it++) {
+        if(it->length() == length){
+            resultado.push_back(*it);
+        }
+    }
+
+    return resultado;
+}
+
 int Dictionary::getOccurrences(const char c) const
 {
     int n = 0;
@@ -40,9 +53,9 @@ int Dictionary::getOccurrences(const char c) const
 }
     
 void Dictionary::anade(const Dictionary &dic){
-    Dictionary::const_iterator it = dic.begin();
+    Dictionary::const_iterator it;
 
-    for(; it != dic.end(); it++){
+    for(it = dic.begin(); it != dic.end(); it++){
         if(!exists(*it)){
             words.insert(*it);
         }
@@ -69,9 +82,9 @@ istream& operator>>(istream &is, Dictionary &dic){
 }
 
 ostream& operator<<(ostream &os, const Dictionary &dic){
-    Dictionary::const_iterator it = dic.begin();
+    Dictionary::const_iterator it;
 
-    for(; it != dic.end(); it++){
+    for(it = dic.begin(); it != dic.end(); it++){
         os << *it;
         os << "\n";
     }
@@ -88,14 +101,3 @@ ostream& operator<<(ostream &os, const Dictionary &dic){
 
 //bool empty()const{return words.empty();}
 // Definición inline en .h
-
-vector<string> Dictionary::wordsOfLength(int length) const
-{
-    vector<string> palabras;
-    for(const_iterator it=words.begin();it != words.end();it++) {
-        if((*it).length() == length)
-            palabras.push_back(*it);
-    }
-
-    return palabras;
-}
