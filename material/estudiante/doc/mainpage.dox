@@ -1,6 +1,9 @@
 /**
 @page uso_llm Uso de modelos de lenguaje (LLM)
 
+@author Pablo Galiano Segura
+@author Manuel Luis Quero Prados
+
 En esta práctica hemos utilizado un LLM, concretamente Claude (Anthropic, modelo
 Claude Sonnet 5.5), a continuación se explicará en qué partes del proyecto se
 ha utilizado, cómo y por qué.
@@ -28,7 +31,7 @@ ha utilizado, cómo y por qué.
 
 - <b>Cómo:</b> se le proporcionaron los <tt>.cpp</tt> y se le pidió
   que nos ayudara a mejorar la comprensión de los comentarios Doxygen de los 
-  <tt>.cpp</tt> y mejorar la forma de escribirlos, un ejemplo sería la desripción de las 
+  <tt>.cpp</tt> y mejorar la forma de escribirlos, un ejemplo sería la descripción de las 
   implementaciones y que completara la documentación que faltaba en las cabeceras (iteradores,
   <tt>\@file</tt>, <tt>\@tparam</tt>), corrigiendo también etiquetas mal escritas
   como algunos <tt>\@param</tt>.
