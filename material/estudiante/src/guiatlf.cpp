@@ -271,10 +271,27 @@ ostream& operator<<(ostream& os, const Guia_Tlf& g) {
  * @post Si el nombre ya existía en la guía, su teléfono no se modifica.
  */
 istream& operator>>(istream& is, Guia_Tlf& g) {
-    string nombre, telefono;
+    string linea, palabra, nombre, telefono;
 
-    while(is >> nombre >> telefono){
-        g.insert(nombre, telefono);
+    while(getline(is, linea)){
+        istringstream iss(linea);
+
+        nombre = "";
+        telefono = "";
+
+        while(iss >> palabra){
+            if(telefono != ""){
+                if(nombre != ""){
+                    nombre += " ";
+                }
+                nombre += telefono;
+            }
+            telefono = palabra;
+        }
+
+        if(nombre != ""){
+            g.insert(nombre, telefono);
+        }
     }
 
     return is;

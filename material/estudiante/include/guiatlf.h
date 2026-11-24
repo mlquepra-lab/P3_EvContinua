@@ -7,6 +7,7 @@
 #define _GUIA_TLF_H
 #include <map>
 #include <iostream>
+#include <sstream>
 #include <string>
 using namespace std;
 
