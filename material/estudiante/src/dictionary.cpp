@@ -67,11 +67,8 @@ unsigned int Dictionary::size() const{
  *
  * @post Si ninguna palabra tiene esa longitud, el vector devuelto está vacío.
  * @note Eficiencia: lineal en el número de palabras.
- * @warning En include/dictionary.h el método está declarado como @c const y
- * aquí no: ambas firmas deben coincidir para que compile y Doxygen asocie la
- * documentación.
  */
-vector<string> Dictionary::wordsOfLength(int length){
+vector<string> Dictionary::wordsOfLength(int length) const{
     vector<string> resultado;
     set<string>::iterator it;
 
