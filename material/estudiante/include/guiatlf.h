@@ -28,20 +28,6 @@ using namespace std;
   */
 
 class Guia_Tlf{
-  /**
-  * @page repGuia_Tlf Rep del TDA Guia_Tlf
-  *
-  * @section invGuia_Tlf Invariante de la representación
-  *
-  * El invariante es \e para todo \e i y \e j tal que i<j entonces \e e1i y e1j son distintos
-  *
-  * @section faGuia_Tlf Función de abstracción
-  *
-  * Un objeto válido @e rep del TDA Guia_Tlf representa al valor
-  *
-  * {(rep.begin().first,rep.begin().second),(rep.begin()+1.first,rep.begin()+1.second),....,(rep.begin()+n-1.first,rep.begin()+n-1.second)}
-  *
-  */
 private:
 	/** @brief Pares (nombre, telefono) ordenados por nombre. */
 	map<string,string> datos; //si admites que haya nombres repetidos tendrías que usar un
