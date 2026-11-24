@@ -323,8 +323,7 @@ public:
     * @param f Final del intervalo. Es un iterador.
     * @return Diccionario con las claves.
     */
-    template <typename I>
-    Diccionario<T,U> Devolver_rango(const I &i, const I &f) const;
+    Diccionario<T,U> Devolver_rango(const T &i, const T &f) const;
 
     /** Funciones begin y end para los iteradores**/
 

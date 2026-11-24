@@ -458,14 +458,20 @@ Diccionario<T, U> Diccionario<T, U>::interseccion(const Diccionario<T, U> & D) {
  * @note Eficiencia: lineal en la longitud del intervalo.
  */
 template <typename T, typename U>
-template <typename I>
-Diccionario<T,U> Diccionario<T,U>::Devolver_rango(const I &i, const I &f) const {
+Diccionario<T,U> Diccionario<T,U>::Devolver_rango(const T &i, const T &f) const {
+
     Diccionario<T, U> nuevo_diccionario;
 
-    I it = i;
-    while (it != f) {
-        nuevo_diccionario.datos.push_back(*it);
-        it++;
+    typename Diccionario<T,U>::const_iterator it;
+    it = begin();
+
+    while (it != end() && (*it).clave <= f) {
+
+        if ((*it).clave >= i) {
+            nuevo_diccionario.datos.push_back(*it);
+        }
+
+        ++it;
     }
 
     return nuevo_diccionario;

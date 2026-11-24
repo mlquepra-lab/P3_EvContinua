@@ -10,9 +10,10 @@
  * <tt>./usodiccionario &lt; data.txt</tt>
  */
 
-#include <iostream>
 #include "diccionario.h"
-
+#include "diccionario.cpp"  
+#include <iostream>
+using namespace std;
 /**
  * @brief Escribe un diccionario en un flujo de salida.
  * @param os Flujo de salida (es modificado).
@@ -25,22 +26,23 @@
  * cada clave escribe la clave, el texto <tt>informacion asociada:</tt>, cada
  * elemento de la información en su propia línea y una línea de asteriscos.
  */
-ostream & operator<<(ostream & os, const Diccionario<string,string> & D){
-	  
-	  Diccionario<string,string>::const_iterator it;
-	  
-	  for (it=D.cbegin(); it!=D.cend(); ++it){
-	  
-		    list<string>::const_iterator it_s;
-		    
-		    os<<endl<<(*it).clave<<endl<<" informacion asociada:"<<endl;
-		    for (it_s=(*it).info_asoci.begin();it_s!=(*it).info_asoci.end();++it_s){
-			      os<<(*it_s)<<endl;
-		    }
-		    os<<"**************************************"<<endl;
-	  }
-	  
-	  return os;
+ostream &operator<<(ostream &os, const Diccionario<string, string> &D) {
+
+  Diccionario<string, string>::const_iterator it;
+
+  for (it = D.begin(); it != D.end(); ++it) {
+
+    list<string>::const_iterator it_s;
+
+    os << endl << (*it).clave << endl << " informacion asociada:" << endl;
+    for (it_s = (*it).info_asoci.begin(); it_s != (*it).info_asoci.end();
+         ++it_s) {
+      os << (*it_s) << endl;
+    }
+    os << "**************************************" << endl;
+  }
+
+  return os;
 }
 
 /**
@@ -59,33 +61,31 @@ ostream & operator<<(ostream & os, const Diccionario<string,string> & D){
  * @pre El flujo respeta el formato descrito.
  */
 
-istream & operator >>(istream & is,Diccionario<string,string> &D){
-          typename list<data<string, string> >::iterator useless;
-	  int np;
-	  is>>np;
-	  is.ignore();//quitamos \n
-	  Diccionario<string,string> Daux;
-	  for (int i=0;i<np; i++){
-		    string clave;
+istream &operator>>(istream &is, Diccionario<string, string> &D) {
+  int np;
+  is >> np;
+  is.ignore(); // quitamos \n
+  Diccionario<string, string> Daux;
+  for (int i = 0; i < np; i++) {
+    string clave;
 
-		    getline(is,clave); 
-		    
-		    int ns;
-		    is>>ns; 
-		    is.ignore();//quitamos \n
-		    list<string>laux;
-		    for (int j=0;j<ns; j++){
-			      string s;
-			      getline(is,s);
-			      
-			      // cout<<"Significado leido "<<s<<endl;
-			      laux.insert(laux.end(),s);
-		    }
-		    Daux.Insertar(clave,laux,useless);		      
-		    
-	  }
-	  D=Daux;
-	  return is;
+    getline(is, clave);
+
+    int ns;
+    is >> ns;
+    is.ignore(); // quitamos \n
+    list<string> laux;
+    for (int j = 0; j < ns; j++) {
+      string s;
+      getline(is, s);
+
+      // cout<<"Significado leido "<<s<<endl;
+      laux.insert(laux.end(), s);
+    }
+    Daux.Insertar(clave, laux);
+  }
+  D = Daux;
+  return is;
 }
 
 /**
@@ -94,17 +94,17 @@ istream & operator >>(istream & is,Diccionario<string,string> &D){
  *
  * @post Cada elemento de @p l se escribe en una línea distinta.
  */
-void EscribeSigni(const list<string>&l){		 
-	  list<string>::const_iterator it_s;
-	  
-	  for (it_s=l.begin();it_s!=l.end();++it_s){
-		    cout<<*it_s<<endl;
-	  }
-}	
+void EscribeSigni(const list<string> &l) {
+  list<string>::const_iterator it_s;
 
+  for (it_s = l.begin(); it_s != l.end(); ++it_s) {
+    cout << *it_s << endl;
+  }
+}
 
 /**
- * @brief Función principal: lee dos diccionarios y muestra las operaciones entre ellos.
+ * @brief Función principal: lee dos diccionarios y muestra las operaciones
+ * entre ellos.
  * @return Sin valor de retorno explícito (equivale a 0 en @c main).
  *
  * @details Lee D1 y D2 de la entrada estándar y escribe D1, D2, su unión
@@ -116,58 +116,60 @@ void EscribeSigni(const list<string>&l){
  * @note Hay un fichero de ejemplo, data.txt. Para ejecutar el programa con él:
  * <tt>./usodiccionario &lt; data.txt</tt>
  */
-int main(){
-	Diccionario<string,string> D1;
-	Diccionario<string,string> D2;
-	Diccionario<string,string> Union;
-	Diccionario<string,string> Diferencia;
-	Diccionario<string,string> Interseccion;
-	Diccionario<string,string> Rango;
-	string clave_1;
-	string clave_2;
-	Diccionario<string,string>::iterator it;
+int main() {
+  Diccionario<string, string> D1;
+  Diccionario<string, string> D2;
+  Diccionario<string, string> Union;
+  Diccionario<string, string> Diferencia;
+  Diccionario<string, string> Interseccion;
+  Diccionario<string, string> Rango;
+  string clave_1;
+  string clave_2;
+  Diccionario<string, string>::iterator it;
 
-	cin >> D1;
-	cout << D1;
-	cin >> D2;
-	cout << D2;
-	
-	Union = D1.union_d(D2);
-	
-	cout << "La union de D1 y D2 es: " << endl;
-	cout << Union;
-	
-	Diferencia = D1.diferencia(D2);
-	
-	cout << "La diferencia D1-D2 es: " << endl;
-	cout << Diferencia;
-	
-	Interseccion = D1.interseccion(D2);
-	
-	cout << "La interseccion D1 y D2 es: " << endl;
-	cout << Interseccion;
-	
-	//cout << "Introduzca la primera clave del rango a buscar en el diccionario 1: ";
-	cin >> clave_1;
-	
-	//cout << "Introduzca la ultima clave del rango a buscar en el diccionario 1: ";
-	cin >> clave_2;
-	
-	Rango = D1.Devolver_rango(clave_1,clave_2);
+  cin >> D1;
+  cout << D1;
+  cin >> D2;
+  cout << D2;
 
-	cout << "Las claves en ese rango son: " << endl;
-	
-	for(it = Rango.begin(); it!= Rango.end(); ++it)
-		cout << (*it).clave << endl;
-	
-	/*string a;
+  Union = D1.union_d(D2);
 
-	cout<<"Introduce una palabra"<<endl;
-	cin>>a;
+  cout << "La union de D1 y D2 es: " << endl;
+  cout << Union;
 
-	list<string>l=D.getInfo_Asoc(a);
+  Diferencia = D1.diferencia(D2);
 
-	if (l.size()>0)
-		EscribeSigni(l);
-	*/
+  cout << "La diferencia D1-D2 es: " << endl;
+  cout << Diferencia;
+
+  Interseccion = D1.interseccion(D2);
+
+  cout << "La interseccion D1 y D2 es: " << endl;
+  cout << Interseccion;
+
+  // cout << "Introduzca la primera clave del rango a buscar en el diccionario
+  // 1: ";
+  cin >> clave_1;
+
+  // cout << "Introduzca la ultima clave del rango a buscar en el diccionario 1:
+  // ";
+  cin >> clave_2;
+
+  Rango = D1.Devolver_rango(clave_1, clave_2);
+
+  cout << "Las claves en ese rango son: " << endl;
+
+  for (it = Rango.begin(); it != Rango.end(); ++it)
+    cout << (*it).clave << endl;
+
+  /*string a;
+
+  cout<<"Introduce una palabra"<<endl;
+  cin>>a;
+
+  list<string>l=D.getInfo_Asoc(a);
+
+  if (l.size()>0)
+          EscribeSigni(l);
+  */
 }
